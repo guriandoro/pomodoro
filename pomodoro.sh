@@ -21,12 +21,12 @@ while true; do
   if [ $ITER -lt $ITERATIONS ]; then
     say "Short break time. $SHORT_BREAK_TIME minutes."
     read -p "Press enter for acknowledgement."
-    echo "Short break start: `date`"
+    echo "Short break #$ITER start: `date`"
     sleep `echo 60 \* $SHORT_BREAK_TIME | bc`
     say "Short break is over."
     ITER=$(($ITER + 1))
   else
-    say "Long break time. $SHORT_BREAK_TIME minutes."
+    say "Long break time. $LONG_BREAK_TIME minutes."
     read -p "Press enter for acknowledgement."
     echo "Long break start: `date`"
     sleep `echo 60 \* $LONG_BREAK_TIME | bc`
