@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $1 =~ --help ]]; then
+  echo "Usage: pomodoro.sh task_time short_break_time long_break_time"
+  exit
+fi
+
 TASK_TIME=${1:-25}
 SHORT_BREAK_TIME=${2:-5}
 LONG_BREAK_TIME=${3:-15}
