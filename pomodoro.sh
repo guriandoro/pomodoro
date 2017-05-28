@@ -1,22 +1,36 @@
 #!/bin/bash
 
-ITERATIONS=$1
+TASK_TIME=${1:-25}
+SHORT_BREAK_TIME=${2:-5}
+LONG_BREAK_TIME=${3:-15}
 
-TASK_TIME=$2
-BREAK_TIME=$3
+ITERATIONS=${4:-4}
 
-echo "Task start: `date`"
+ITER=1
 
-for i in `seq $ITERATIONS`; do
-  sleep $((60*$TASK_TIME));
-  say "Pomodoro. Break time";
-  echo "Press enter for confirmation."
-  read;
-  echo "Task end / break start: `date`"
-  sleep $((60*$BREAK_TIME));
-  say "Pomodoro. Break is over";
-  echo "Press enter for confirmation."
-  read;
-  echo "Break end / task start: `date`"
+while true; do
+  read -p "Press enter for acknowledgement."
+  say "Task time. $TASK_TIME minutes."
+  echo "Task start: `date`"
+  sleep `echo 60 \* $TASK_TIME | bc`
+
+  if [ $ITER -lt $ITERATIONS ]; then
+    say "Short break time. $SHORT_BREAK_TIME minutes."
+    read -p "Press enter for acknowledgement."
+    echo "Short break start: `date`"
+    sleep `echo 60 \* $SHORT_BREAK_TIME | bc`
+    say "Short break is over."
+    ITER=$(($ITER + 1))
+  else
+    say "Long break time. $SHORT_BREAK_TIME minutes."
+    read -p "Press enter for acknowledgement."
+    echo "Long break start: `date`"
+    sleep `echo 60 \* $LONG_BREAK_TIME | bc`
+    say "Long break is over."
+    ITER=1
+    echo
+  fi
+
+  echo
 done;
 
